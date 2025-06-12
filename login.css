@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+}
+
+.cabecalho {
+    background-color: #acbf9b; 
+    height: 7vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.cabecalho h1 {
+    font-size: 25px;
+    font-family: "Savate", sans-serif;
+}
+
+.cabecalho nav a {
+    font-family: "Savate", sans-serif;
+    font-size: 20px;
+    color: #687a6d;
+}
+
+.cabecalho nav a:hover {
+    color: #3b423d;
+}

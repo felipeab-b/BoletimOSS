@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+}
+
+.cabecalho {
+    background-color: #acbf9b; 
+    height: 7vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.cabecalho h1 {
+    font-size: 25px;
+    font-family: "Savate", sans-serif;
+}
+
+.cabecalho nav a {
+    font-family: "Savate", sans-serif;
+    font-size: 20px;
+    color: #687a6d;
+}
+
+.cabecalho nav a:hover {
+    color: #3b423d;
+}
+
+.conteudo {
+    background-color: #bed2ae;
+    height: 90vh;
+}
+
+.conteudo img {
+    width: 50vw;
+    height: 70vh;
+    margin-left: 25vw;
+}
+
+.conteudo button {
+    font-size: 40px;
+    position: absolute;
+    bottom: 17vh;
+    left: 42vw;
+    padding: 5px 60px;
+    background-color: #bed2ae;
+    border-radius: 16px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 200;
+    border-style: double;
+    border-color: #3b423d;
+}
+
+.conteudo button:hover {
+    background-color: #acbf9b;
+}
+
+.rodape {
+    background-color: #bed2ae; 
+    height: 3vh;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    align-items: end;
+}
