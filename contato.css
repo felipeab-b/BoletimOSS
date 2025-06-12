@@ -29,6 +29,27 @@
 .conteudo {
     background-color: #bed2ae;
     height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.texto {
+    align-items: center;
+    width: 80vw;
+    height: 80vh;
+}
+
+.texto h1 {
+    justify-self: center;
+    font-family: "Savate", sans-serif;
+    font-size: 50px;
+    margin-bottom: 9vh;
+}
+
+.texto p {
+    margin: 0 20vw;
+    font-size: 22px;
 }
 
 .rodape {
