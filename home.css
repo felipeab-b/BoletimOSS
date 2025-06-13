@@ -2,10 +2,22 @@
     margin: 0;
 }
 
+#botao_cabecalho {
+    position: absolute;
+    top: 1vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+
 .cabecalho {
+    display: none;
     background-color: #acbf9b; 
     height: 7vh;
-    display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
@@ -28,13 +40,15 @@
 
 .conteudo {
     background-color: #bed2ae;
-    height: 90vh;
+    height: 97vh;
 }
 
 .conteudo img {
     width: 50vw;
     height: 70vh;
-    margin-left: 25vw;
+    position: absolute;
+    right: 25vw;
+    top: 10vh;
 }
 
 .conteudo button {
@@ -53,6 +67,7 @@
 
 .conteudo button:hover {
     background-color: #acbf9b;
+    cursor: pointer;
 }
 
 .rodape {
