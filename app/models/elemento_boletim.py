@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class RegistroAcademico(ABC):
+class ElementoBoletim(ABC):
     @abstractmethod
-    def exibir_detalhes(self):
+    def render(self):
         pass

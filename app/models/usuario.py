@@ -1,10 +1,9 @@
-from .materia import Materia
+from app.models.materia import Materia
 
 class Usuario:
-    def __init__(self, nome, usuario, senha):
+    def __init__(self, nome, matricula):
         self._nome = nome
-        self._usuario = usuario
-        self._senha = senha
+        self._matricula = matricula
         self._materias = []
 
     def adicionar_materia(self, materia):
@@ -12,3 +11,9 @@ class Usuario:
 
     def listar_materias(self):
         return self._materias
+
+    def get_nome(self):
+        return self._nome
+
+    def get_matricula(self):
+        return self._matricula

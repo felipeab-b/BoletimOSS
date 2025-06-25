@@ -1,0 +1,56 @@
+[
+    {
+        "nome": "Maria",
+        "matricula": "20239876",
+        "materias": [
+            {
+                "codigo": "MAT0101",
+                "nome": "Cálculo 1",
+                "horas": 80,
+                "faltas": 5,
+                "notas": [
+                    {
+                        "descricao": "Prova 1",
+                        "valor": 7.0
+                    },
+                    {
+                        "descricao": "Prova 2",
+                        "valor": 8.5
+                    }
+                ],
+                "avaliacoes": [
+                    {
+                        "comentario": "Excelente disciplina!"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "nome": "João da Silva",
+        "matricula": "20240001",
+        "materias": [
+            {
+                "codigo": "HIS101",
+                "nome": "História do Brasil",
+                "horas": 60,
+                "faltas": 3,
+                "notas": [
+                    {
+                        "descricao": "Prova 1",
+                        "valor": 6.0
+                    },
+                    {
+                        "descricao": "Prova 2",
+                        "valor": 8.0
+                    }
+                ],
+                "avaliacoes": [
+                    {
+                        "comentario": "Bom professor, conteúdo claro."
+                    }
+                ]
+            }
+        ]
+    }
+]
