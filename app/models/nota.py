@@ -1,6 +1,4 @@
-from app.models.elemento_boletim import ElementoBoletim
-
-class Nota(ElementoBoletim):
+class Nota():
     def __init__(self, descricao, valor):
         self._descricao = descricao
         self._valor = valor

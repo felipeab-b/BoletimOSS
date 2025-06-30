@@ -1,5 +1,3 @@
-from app.models.materia import Materia
-
 class Usuario:
     def __init__(self, nome, matricula,curso="Não Informado"):
         self._nome = nome

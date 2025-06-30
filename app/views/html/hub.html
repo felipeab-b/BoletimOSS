@@ -4,191 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hub do Estudante</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header-info {
-            flex: 1;
-        }
-        .materia-card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .materia-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .notas-container, .avaliacoes-container {
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 6px;
-        }
-        .logout-btn {
-            padding: 10px 20px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .add-materia-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #27ae60;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            transition: background-color 0.3s;
-        }
-        .add-materia-btn:hover {
-            background-color: #219653;
-        }
-        .materia-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .action-btn {
-            padding: 5px 10px;
-            color: white;
-            text-decoration: none;
-            border-radius: 3px;
-            font-size: 0.9rem;
-            transition: opacity 0.3s;
-        }
-        .action-btn:hover {
-            opacity: 0.9;
-        }
-        .edit-btn {
-            background-color: #3498db;
-        }
-        .delete-btn {
-            background-color: #e74c3c;
-            border: none;
-            cursor: pointer;
-        }
-        .nota-form, .avaliacao-form {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-        .form-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-        .form-row input, .form-row textarea {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            flex: 1;
-        }
-        .form-row textarea {
-            min-height: 60px;
-            resize: vertical;
-        }
-        .submit-btn {
-            padding: 8px 15px;
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .submit-btn:hover {
-            background-color: #27ae60;
-        }
-        .avaliacao-btn {
-            background-color: #9b59b6;
-        }
-        .avaliacao-btn:hover {
-            background-color: #8e44ad;
-        }
-        .item-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .item-actions {
-            display: flex;
-            gap: 5px;
-        }
-        .delete-item-btn {
-            padding: 3px 6px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        .status-indicator {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-        .aprovado {
-            background-color: #2ecc71;
-        }
-        .recuperacao {
-            background-color: #f39c12;
-        }
-        .reprovado {
-            background-color: #e74c3c;
-        }
-        .faltas-warning {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        .media-container {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #eaf7ff;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        .no-items {
-            color: #7f8c8d;
-            font-style: italic;
-        }
-    </style>
+    <link rel="stylesheet" href="../../static/css/hub.css">
 </head>
 <body>
     <div class="container">
@@ -261,10 +77,8 @@
                     <div class="media-container">
                         <strong>Média: {{ materia.calcular_media() }}</strong>
                         % media = materia.calcular_media()
-                        % if media >= 7:
+                        % if media >= 5:
                             <span class="status-indicator aprovado"></span> Aprovado
-                        % elif media >= 4:
-                            <span class="status-indicator recuperacao"></span> Recuperação
                         % else:
                             <span class="status-indicator reprovado"></span> Reprovado
                         % end
@@ -323,22 +137,6 @@
         % end
     </div>
 
-    <script>
-        // Atualiza os indicadores de status de aprovação por falta
-        document.querySelectorAll('.materia-card').forEach(card => {
-            const faltasElem = card.querySelector('.faltas-warning');
-            const statusIndicator = card.querySelector('.status-indicator');
-            const limite = parseFloat(statusIndicator.nextSibling.textContent.match(/\/ (\d+)/)[1]);
-            const faltas = parseFloat(faltasElem ? faltasElem.textContent : statusIndicator.nextSibling.textContent.match(/: (\d+)/)[1]);
-            
-            if (faltas > limite) {
-                statusIndicator.className = 'status-indicator reprovado';
-            } else if (faltas > limite * 0.7) {
-                statusIndicator.className = 'status-indicator recuperacao';
-            } else {
-                statusIndicator.className = 'status-indicator aprovado';
-            }
-        });
-    </script>
+    <script src="../../static/js/hub.js"></script>
 </body>
 </html>

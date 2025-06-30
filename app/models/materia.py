@@ -1,6 +1,3 @@
-from app.models.nota import Nota
-from app.models.avaliacao import Avaliacao
-
 class Materia:
     def __init__(self, codigo, nome, horas):
         self._codigo = codigo

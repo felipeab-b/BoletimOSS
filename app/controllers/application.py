@@ -31,17 +31,6 @@ class Application():
         return template('app/views/html/home')
 
     def hub(self, usuario =None, **kwargs):
-        print(f"Usuário: {usuario.get_nome()}")
-        print(f"Matrícula: {usuario.get_matricula()}")
-        
-        materias = usuario.listar_materias()
-        print(f"Número de matérias: {len(materias)}")
-        
-        for i, mat in enumerate(materias):
-            print(f"Matéria {i+1}: {mat.get_nome()} (Código: {mat.get_codigo()})")
-            print(f"Notas: {mat.listar_notas()}")
-            print(f"Avaliações: {mat.listar_avaliacoes()}")
-        
         return template('app/views/html/hub', usuario=usuario)
         
     def login(self):

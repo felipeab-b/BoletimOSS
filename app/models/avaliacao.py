@@ -1,6 +1,4 @@
-from app.models.elemento_boletim import ElementoBoletim
-
-class Avaliacao(ElementoBoletim):
+class Avaliacao():
     def __init__(self, comentario):
         self._comentario = comentario
 
