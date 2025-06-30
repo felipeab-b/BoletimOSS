@@ -8,13 +8,15 @@ from app.models.avaliacao import Avaliacao
 class DataRecord:
     def __init__(self):
         self.usuarios = []
-        self.db_path = "app/controllers/db/usuarios.json"
+        self.db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "db", "usuarios.json")
+
+        os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
 
         if os.path.exists(self.db_path):
             with open(self.db_path, "r", encoding="utf-8") as arquivo:
                 dados = json.load(arquivo)
                 for u in dados:
-                    usuario = Usuario(u["nome"], u["matricula"])
+                    usuario = Usuario(u["nome"], u["matricula"], u.get("curso", "Não informado"))
                     for m in u.get("materias", []):
                         materia = Materia(m["codigo"], m["nome"], m["horas"])
                         materia.atualizar_faltas(m["faltas"])
@@ -27,6 +29,7 @@ class DataRecord:
         else:
             # Cria um usuário padrão se o JSON não existir
             self.usuarios.append(Usuario("Visitante", "000000"))
+            self.salvar()
 
     def salvar(self):
         dados = []
@@ -34,6 +37,7 @@ class DataRecord:
             usuario_dict = {
                 "nome": u.get_nome(),
                 "matricula": u.get_matricula(),
+                "curso": u.get_curso(),
                 "materias": []
             }
             for m in u.listar_materias():
@@ -52,12 +56,13 @@ class DataRecord:
             json.dump(dados, arquivo, indent=4, ensure_ascii=False)
 
     def work_with_parameter(self, parametro):
-        try:
-            index = int(parametro)
-            if 0 <= index < len(self.usuarios):
-                return self.usuarios[index]
-        except (ValueError, IndexError):
-            return None
+        clean_param = ''.join(filter(str.isdigit, str(parametro)))
+        
+        for user in self.usuarios:
+            user_matricula = ''.join(filter(str.isdigit, user.get_matricula()))
+            if user_matricula == clean_param:
+                return user
+        return None
 
     def listar_usuarios(self):
         return self.usuarios

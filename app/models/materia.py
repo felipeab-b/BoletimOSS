@@ -1,4 +1,3 @@
-
 from app.models.nota import Nota
 from app.models.avaliacao import Avaliacao
 
@@ -11,6 +10,28 @@ class Materia:
         self._notas = []
         self._avaliacoes = []
 
+    def atualizar_informacoes(self, nome=None, horas=None, faltas=None):
+        if nome:
+            self._nome = nome
+        if horas is not None:
+            self._horas = horas
+        if faltas is not None:
+            self._faltas = faltas
+
+    def remover_nota(self, descricao):
+        for i, nota in enumerate(self._notas):
+            if nota.get_descricao() == descricao:
+                del self._notas[i]
+                return True
+        return False
+    
+    def remover_avaliacao(self, comentario):
+        for i, avaliacao in enumerate(self._avaliacoes):
+            if avaliacao.get_comentario() == comentario:
+                del self._avaliacoes[i]
+                return True
+        return False
+
     #NOTAS-------------
     def adicionar_nota(self, nota):
         self._notas.append(nota)
@@ -21,7 +42,7 @@ class Materia:
         return sum(n.get_valor() for n in self._notas) / len(self._notas)
 
     def listar_notas(self):
-        return [n.render() for n in self._notas]
+        return self._notas
     
     #FALTAS------------
     def atualizar_faltas(self, faltas):
@@ -38,7 +59,7 @@ class Materia:
         self._avaliacoes.append(avaliacao)
 
     def listar_avaliacoes(self):
-        return [a.render() for a in self._avaliacoes]
+        return self._avaliacoes
     
     #GETTERS-------
     def get_horas(self):

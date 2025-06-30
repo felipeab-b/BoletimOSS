@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub do Estudante</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-info {
+            flex: 1;
+        }
+        .materia-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .materia-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .notas-container, .avaliacoes-container {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+        }
+        .logout-btn {
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .add-materia-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #27ae60;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+        .add-materia-btn:hover {
+            background-color: #219653;
+        }
+        .materia-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .action-btn {
+            padding: 5px 10px;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+        }
+        .action-btn:hover {
+            opacity: 0.9;
+        }
+        .edit-btn {
+            background-color: #3498db;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+            border: none;
+            cursor: pointer;
+        }
+        .nota-form, .avaliacao-form {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .form-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        .form-row input, .form-row textarea {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1;
+        }
+        .form-row textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+        .submit-btn {
+            padding: 8px 15px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #27ae60;
+        }
+        .avaliacao-btn {
+            background-color: #9b59b6;
+        }
+        .avaliacao-btn:hover {
+            background-color: #8e44ad;
+        }
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .item-actions {
+            display: flex;
+            gap: 5px;
+        }
+        .delete-item-btn {
+            padding: 3px 6px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .aprovado {
+            background-color: #2ecc71;
+        }
+        .recuperacao {
+            background-color: #f39c12;
+        }
+        .reprovado {
+            background-color: #e74c3c;
+        }
+        .faltas-warning {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .media-container {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #eaf7ff;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .no-items {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-info">
+                <h1>Boletim do Estudante</h1>
+                <h2>{{ usuario.get_nome() }} - {{ usuario.get_matricula() }}</h2>
+                <p>Curso: {{ usuario.get_curso() }}</p>
+            </div>
+            <form action="/logout" method="post">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+
+        <a href="/materia/adicionar" class="add-materia-btn">+ Adicionar Nova Matéria</a>
+        
+        <h2>Matérias Inscritas</h2>
+        
+        % if not usuario.listar_materias():
+            <div class="materia-card">
+                <p class="no-items">Nenhuma matéria cadastrada. Adicione sua primeira matéria!</p>
+            </div>
+        % end
+        
+        % for materia in usuario.listar_materias():
+        <div class="materia-card">
+            <div class="materia-header">
+                <div>
+                    <h3>{{ materia.get_nome() }} ({{ materia.get_codigo() }})</h3>
+                    <p>Carga Horária: {{ materia.get_horas() }} horas</p>
+                    <p>
+                        <span class="status-indicator"></span>
+                        Faltas: 
+                        % if materia.get_faltas() > materia.limite_faltas():
+                            <span class="faltas-warning">{{ materia.get_faltas() }}</span>
+                        % else:
+                            {{ materia.get_faltas() }}
+                        % end
+                        / {{ materia.limite_faltas() }}
+                    </p>
+                </div>
+                
+                <div class="materia-actions">
+                    <a href="/materia/{{ materia.get_codigo() }}/editar" class="action-btn edit-btn">Editar</a>
+                    <form action="/materia/{{ materia.get_codigo() }}/excluir" method="post">
+                        <button type="submit" class="action-btn delete-btn">Excluir</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="notas-container">
+                <h4>Notas:</h4>
+                
+                % if materia.listar_notas():
+                    <ul style="padding: 0; list-style: none;">
+                    % for nota in materia.listar_notas():
+                        <li class="item-row">
+                            <div>
+                                <strong>{{ nota.get_descricao() }}:</strong> {{ nota.get_valor() }}
+                            </div>
+                            <div class="item-actions">
+                                <form action="/materia/{{ materia.get_codigo() }}/nota/{{ nota.get_descricao() }}/excluir" method="post">
+                                    <button type="submit" class="delete-item-btn">Excluir</button>
+                                </form>
+                            </div>
+                        </li>
+                    % end
+                    </ul>
+                    
+                    <div class="media-container">
+                        <strong>Média: {{ materia.calcular_media() }}</strong>
+                        % media = materia.calcular_media()
+                        % if media >= 7:
+                            <span class="status-indicator aprovado"></span> Aprovado
+                        % elif media >= 4:
+                            <span class="status-indicator recuperacao"></span> Recuperação
+                        % else:
+                            <span class="status-indicator reprovado"></span> Reprovado
+                        % end
+                    </div>
+                % else:
+                    <p class="no-items">Nenhuma nota registrada</p>
+                % end
+                
+                <div class="nota-form">
+                    <h4>Adicionar Nova Nota:</h4>
+                    <form action="/materia/{{ materia.get_codigo() }}/nota/adicionar" method="post">
+                        <div class="form-row">
+                            <input type="text" name="descricao" placeholder="Descrição (ex: Prova 1)" required>
+                            <input type="number" name="valor" placeholder="Nota (0-10)" min="0" max="10" step="0.1" required>
+                            <button type="submit" class="submit-btn">Adicionar Nota</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="avaliacoes-container">
+                <h4>Avaliações:</h4>
+                
+                % if materia.listar_avaliacoes():
+                    <ul style="padding: 0; list-style: none;">
+                    % for avaliacao in materia.listar_avaliacoes():
+                        <li class="item-row">
+                            <div>
+                                <strong>Avaliação:</strong> {{ avaliacao.get_comentario() }}
+                            </div>
+                            <div class="item-actions">
+                                <form action="/materia/{{ materia.get_codigo() }}/avaliacao/{{ avaliacao.get_comentario() }}/excluir" method="post">
+                                    <button type="submit" class="delete-item-btn">Excluir</button>
+                                </form>
+                            </div>
+                        </li>
+                    % end
+                    </ul>
+                % else:
+                    <p class="no-items">Nenhuma avaliação registrada</p>
+                % end
+                
+                <div class="avaliacao-form">
+                    <h4>Adicionar Nova Avaliação:</h4>
+                    <form action="/materia/{{ materia.get_codigo() }}/avaliacao/adicionar" method="post">
+                        <div class="form-row">
+                            <textarea name="comentario" placeholder="Seu comentário sobre a matéria..." required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <button type="submit" class="submit-btn avaliacao-btn">Adicionar Avaliação</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        % end
+    </div>
+
+    <script>
+        // Atualiza os indicadores de status de aprovação por falta
+        document.querySelectorAll('.materia-card').forEach(card => {
+            const faltasElem = card.querySelector('.faltas-warning');
+            const statusIndicator = card.querySelector('.status-indicator');
+            const limite = parseFloat(statusIndicator.nextSibling.textContent.match(/\/ (\d+)/)[1]);
+            const faltas = parseFloat(faltasElem ? faltasElem.textContent : statusIndicator.nextSibling.textContent.match(/: (\d+)/)[1]);
+            
+            if (faltas > limite) {
+                statusIndicator.className = 'status-indicator reprovado';
+            } else if (faltas > limite * 0.7) {
+                statusIndicator.className = 'status-indicator recuperacao';
+            } else {
+                statusIndicator.className = 'status-indicator aprovado';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,4 +1,3 @@
-
 from app.models.elemento_boletim import ElementoBoletim
 
 class Avaliacao(ElementoBoletim):
@@ -10,3 +9,6 @@ class Avaliacao(ElementoBoletim):
 
     def render(self):
         return f"Avaliação: \"{self._comentario}\""
+
+    def __str__(self):
+        return f"\"{self._comentario}\""

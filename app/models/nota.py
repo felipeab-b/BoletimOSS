@@ -13,3 +13,6 @@ class Nota(ElementoBoletim):
 
     def render(self):
         return f"Nota {self._descricao} = {self._valor}"
+    
+    def __str__(self):
+        return f"{self._descricao}: {self._valor}"
