@@ -51,3 +51,6 @@ class Application():
     
     def form_materia(self, materia=None):
         return template('app/views/html/form_materia', materia=materia)
+    
+    def save_changes(self):
+        self.models.salvar()

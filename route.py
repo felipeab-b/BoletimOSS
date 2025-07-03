@@ -1,6 +1,6 @@
 from app.controllers.application import Application
 from bottle import Bottle, route, run, request, static_file
-from bottle import redirect, template, response
+from bottle import redirect, template, response, post
 from app.models.materia import Materia
 from app.models.nota import Nota
 from app.models.avaliacao import Avaliacao
@@ -188,6 +188,34 @@ def excluir_avaliacao(codigo, comentario):
     
     materia = user.encontrar_materia(codigo)
     if materia and materia.remover_avaliacao(comentario):
+        ctl.models.salvar()
+    
+    redirect('/hub')
+
+@app.post('/materia/<codigo>/faltas/adicionar')
+def adicionar_falta(codigo):
+    session_id = request.get_cookie('session_id')
+    user = ctl.get_current_user(session_id)
+    if not user:
+        redirect('/login')
+    
+    materia = user.encontrar_materia(codigo)
+    if materia:
+        materia.atualizar_faltas(materia.get_faltas() + 1)
+        ctl.models.salvar()
+    
+    redirect('/hub')
+
+@app.post('/materia/<codigo>/faltas/remover')
+def remover_falta(codigo):
+    session_id = request.get_cookie('session_id')
+    user = ctl.get_current_user(session_id)
+    if not user:
+        redirect('/login')
+    
+    materia = user.encontrar_materia(codigo)
+    if materia and materia.get_faltas() > 0:
+        materia.atualizar_faltas(materia.get_faltas() - 1)
         ctl.models.salvar()
     
     redirect('/hub')

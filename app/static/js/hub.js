@@ -14,3 +14,12 @@ document.querySelectorAll('.materia-card').forEach(card => {
         statusIndicator.className = 'status-indicator aprovado';
     }
         });
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.delete-btn, .delete-item-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            if (!confirm('Tem certeza que deseja excluir este item?')) {
+                e.preventDefault();
+            }
+        });
+    });
+});

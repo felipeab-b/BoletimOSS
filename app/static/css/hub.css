@@ -24,6 +24,63 @@
         .header-info {
             flex: 1;
         }
+        .resume-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow-x: auto;
+        }
+        .resume-card table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            min-width: 600px;
+        }
+        .resume-card th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }   
+        .resume-card td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+        }
+        .resume-card tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .resume-card tr:hover {
+            background-color: #f1f1f1;
+        }
+        .resume-card .media-cell {
+            font-weight: bold;
+        }
+        .resume-card .aprovado {
+            color: #2ecc71;
+        }
+        .resume-card .reprovado {
+            color: #e74c3c;
+        }
+        .media-cell{
+            font-weight: bold;
+            text-align: center;
+        }
+        .faltas-btn {
+            padding: 2px 6px;
+            margin: 0 2px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            font-size: 0.8rem;
+        }
+        .faltas-btn:hover {
+            opacity: 0.8;
+        }
         .materia-card {
             background-color: white;
             border-radius: 8px;

@@ -43,7 +43,8 @@ class Materia:
     
     #FALTAS------------
     def atualizar_faltas(self, faltas):
-        self._faltas = faltas
+        self._faltas = max(0, faltas)
+        return self._faltas
 
     def limite_faltas(self):
         return int((self._horas * 0.25)/2)

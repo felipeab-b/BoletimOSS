@@ -20,7 +20,55 @@
         </div>
 
         <a href="/materia/adicionar" class="add-materia-btn">+ Adicionar Nova Matéria</a>
-        
+    
+        % if not usuario.listar_materias():
+            <div class="resume-card">
+                <p class="no-items">Nenhuma matéria cadastrada. Adicione sua primeira matéria!</p>
+            </div>
+        % else:
+            <div class="resume-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>Média</th>
+                            <th>Faltas</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        % for materia in usuario.listar_materias():
+                            <tr>
+                                <td>{{ materia.get_codigo() }}</td>
+                                <td>{{ materia.get_nome() }}</td>
+                                <td class="media-cell">{{ (materia.calcular_media()) }}</td>
+                                <td>
+                                    {{ materia.get_faltas() }}
+                                    <form action="/materia/{{ materia.get_codigo() }}/faltas/adicionar" method="post" style="display: inline;">
+                                        <button type="submit" class="faltas-btn">+</button>
+                                    </form>
+                                    <form action="/materia/{{ materia.get_codigo() }}/faltas/remover" method="post" style="display: inline;">
+                                        <button type="submit" class="faltas-btn">-</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    % media = materia.calcular_media()
+                                    % faltas = materia.get_faltas()
+                                    % maximo = materia.limite_faltas()
+                                    % if media >= 5 and faltas <= maximo :
+                                        <span class="aprovado">Aprovado</span>
+                                    % else:
+                                        <span class="reprovado">Reprovado</span>
+                                    % end
+                                </td>
+                            </tr>
+                        % end
+                    </tbody>
+                </table>
+            </div>
+        % end
+
         <h2>Matérias Inscritas</h2>
         
         % if not usuario.listar_materias():
