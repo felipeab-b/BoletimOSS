@@ -1,5 +1,6 @@
 import json
 import os
+import uuid                  
 from app.models.usuario import Usuario
 from app.models.materia import Materia
 from app.models.nota import Nota
@@ -8,7 +9,11 @@ from app.models.avaliacao import Avaliacao
 class DataRecord:
     def __init__(self):
         self.usuarios = []
-        self.db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "db", "usuarios.json")
+        self.__authenticated_users = {} 
+        self.db_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "db", "usuarios.json"
+        )
 
         os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
 
@@ -16,7 +21,13 @@ class DataRecord:
             with open(self.db_path, "r", encoding="utf-8") as arquivo:
                 dados = json.load(arquivo)
                 for u in dados:
-                    usuario = Usuario(u["nome"], u["matricula"], u.get("curso", "Não informado"))
+                    # carregue também a senha que veio do JSON:
+                    usuario = Usuario(
+                        u["nome"],
+                        u["matricula"],
+                        u.get("curso", "Não informado"),
+                        u.get("password")       # ← PASSA AQUI A SENHA
+                    )
                     for m in u.get("materias", []):
                         materia = Materia(m["codigo"], m["nome"], m["horas"])
                         materia.atualizar_faltas(m["faltas"])
@@ -27,8 +38,7 @@ class DataRecord:
                         usuario.adicionar_materia(materia)
                     self.usuarios.append(usuario)
         else:
-            # Cria um usuário padrão se o JSON não existir
-            self.usuarios.append(Usuario("Visitante", "000000"))
+            self.usuarios.append(Usuario("Visitante", "000000", password=None))
             self.salvar()
 
     def salvar(self):
@@ -38,6 +48,7 @@ class DataRecord:
                 "nome": u.get_nome(),
                 "matricula": u.get_matricula(),
                 "curso": u.get_curso(),
+                "password": u.get_password(),
                 "materias": []
             }
             for m in u.listar_materias():
@@ -57,7 +68,6 @@ class DataRecord:
 
     def work_with_parameter(self, parametro):
         clean_param = ''.join(filter(str.isdigit, str(parametro)))
-        
         for user in self.usuarios:
             user_matricula = ''.join(filter(str.isdigit, user.get_matricula()))
             if user_matricula == clean_param:
@@ -70,3 +80,16 @@ class DataRecord:
     def adicionar_usuario(self, usuario):
         self.usuarios.append(usuario)
         self.salvar()
+
+    # ─────── AUTENTICAÇÃO ───────
+
+    def check_user(self, matricula, password):
+        for u in self.usuarios:
+            if u.get_matricula() == matricula and u.get_password() == password:
+                session_id = str(uuid.uuid4())
+                self.__authenticated_users[session_id] = u
+                return session_id
+        return None
+
+    def get_current_user(self, session_id):
+        return self.__authenticated_users.get(session_id)

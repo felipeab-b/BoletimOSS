@@ -3,12 +3,14 @@
         "nome": "Maria",
         "matricula": "000000",
         "curso": "Não informado",
+        "password": null,
         "materias": []
     },
     {
         "nome": "João da Silva",
         "matricula": "20240001",
         "curso": "Não informado",
+        "password": null,
         "materias": [
             {
                 "codigo": "HIS101",
@@ -37,12 +39,35 @@
         "nome": "Felipe Avelar Borborema Ferreira",
         "matricula": "111111",
         "curso": "Engenharia",
+        "password": "12345",
         "materias": []
     },
     {
         "nome": "Andre Belarmino",
         "matricula": "222222",
         "curso": "Engenharia",
+        "password": null,
+        "materias": []
+    },
+    {
+        "nome": "abcd",
+        "matricula": "2410",
+        "curso": "engenharia",
+        "password": null,
+        "materias": []
+    },
+    {
+        "nome": "testando senha ",
+        "matricula": "444444",
+        "curso": "engenharia",
+        "password": "444444",
+        "materias": []
+    },
+    {
+        "nome": "mais teste",
+        "matricula": "1234567",
+        "curso": "aaa",
+        "password": "1234567",
         "materias": []
     }
 ]

@@ -47,13 +47,14 @@ def login_form():
 @app.route('/login', method='POST')
 def login_action():
     matricula = request.forms.get('matricula')
-    session_id, user = ctl.autenticate_user(matricula)
+    senha = request.forms.get('password')
+    session_id, user = ctl.autenticate_user(matricula, senha)
     
     if session_id:
         response.set_cookie('session_id', session_id)
         redirect('/hub')
     else:
-        return "Matrícula inválida"
+        return template('app/views/html/login', error="Matrícula ou senha inválida")
 
 @app.route('/logout', method='POST')
 def logout():
@@ -72,11 +73,12 @@ def registro_action():
     matricula = request.forms.get('matricula')
     nome = request.forms.get('nome')
     curso = request.forms.get('curso')
+    password = request.forms.get('password')
 
     if ctl.models.work_with_parameter(matricula):
         return "Matrícula já cadastrada. Por favor, use outra matrícula ou faça login."
 
-    novo_usuario = Usuario(nome, matricula, curso) 
+    novo_usuario = Usuario(nome, matricula, curso, password) 
     
     ctl.models.adicionar_usuario(novo_usuario)
     

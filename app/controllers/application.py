@@ -38,10 +38,12 @@ class Application():
     def login(self):
         return template('app/views/html/login')
 
-    def autenticate_user(self,matricula):
-        user = self.models.work_with_parameter(matricula)
-        if user:
-            session_id = str(uuid.uuid4())
+    def autenticate_user(self, matricula, password):
+        # tenta autenticar via DataRecord
+        session_id = self.models.check_user(matricula, password)
+        if session_id:
+            user = self.models.get_current_user(session_id)
+            #também guarda em self.sessions
             self.sessions[session_id] = user
             return session_id, user
         return None, None
