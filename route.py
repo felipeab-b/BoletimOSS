@@ -4,6 +4,7 @@ from bottle import redirect, template, response, post
 from app.models.materia import Materia
 from app.models.nota import Nota
 from app.models.avaliacao import Avaliacao
+from app.models.usuario import Usuario
 
 
 app = Bottle()
@@ -62,6 +63,24 @@ def logout():
     response.delete_cookie('session_id')
     redirect('/home')
 
+@app.route('/form_registro.html', method='GET') 
+def form_registro_page():
+    return ctl.render('form_registro')
+
+@app.route('/registro', method='POST') 
+def registro_action():
+    matricula = request.forms.get('matricula')
+    nome = request.forms.get('nome')
+    curso = request.forms.get('curso')
+
+    if ctl.models.work_with_parameter(matricula):
+        return "Matrícula já cadastrada. Por favor, use outra matrícula ou faça login."
+
+    novo_usuario = Usuario(nome, matricula, curso) 
+    
+    ctl.models.adicionar_usuario(novo_usuario)
+    
+    redirect('/login')
 #----------------------------------------------------
 
 @app.route('/materia/adicionar', method='GET')

@@ -3,29 +3,7 @@
         "nome": "Maria",
         "matricula": "000000",
         "curso": "Não informado",
-        "materias": [
-            {
-                "codigo": "MAT0001",
-                "nome": "Calculo 1",
-                "horas": 60,
-                "faltas": 8,
-                "notas": [
-                    {
-                        "descricao": "Prova 1",
-                        "valor": 10.0
-                    }
-                ],
-                "avaliacoes": []
-            },
-            {
-                "codigo": "MAT002",
-                "nome": "Calculo 2",
-                "horas": 90,
-                "faltas": 10,
-                "notas": [],
-                "avaliacoes": []
-            }
-        ]
+        "materias": []
     },
     {
         "nome": "João da Silva",
@@ -54,5 +32,17 @@
                 ]
             }
         ]
+    },
+    {
+        "nome": "Felipe Avelar Borborema Ferreira",
+        "matricula": "111111",
+        "curso": "Engenharia",
+        "materias": []
+    },
+    {
+        "nome": "Andre Belarmino",
+        "matricula": "222222",
+        "curso": "Engenharia",
+        "materias": []
     }
 ]

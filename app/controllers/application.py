@@ -1,6 +1,7 @@
 from bottle import template, redirect
 from .datarecord import DataRecord
 import uuid
+from app.models.usuario import Usuario
 
 
 class Application():
@@ -10,7 +11,8 @@ class Application():
             'home' : self.home,
             'hub' : self.hub,
             'login' : self.login,
-            'form_materia' : self.form_materia
+            'form_materia' : self.form_materia,
+            'form_registro' : self.form_registro
         }
 
         self.models = DataRecord()
@@ -52,5 +54,8 @@ class Application():
     def form_materia(self, materia=None):
         return template('app/views/html/form_materia', materia=materia)
     
+    def form_registro(self):
+        return template('app/views/html/form_registro')
+
     def save_changes(self):
         self.models.salvar()
