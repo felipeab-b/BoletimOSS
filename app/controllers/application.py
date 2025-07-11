@@ -32,11 +32,11 @@ class Application():
     def home(self):
         return template('app/views/html/home')
 
-    def hub(self, usuario =None, **kwargs):
+    def hub(self, usuario =None):
         return template('app/views/html/hub', usuario=usuario)
         
-    def login(self):
-        return template('app/views/html/login')
+    def login(self, **kwargs):
+        return template('app/views/html/login', **kwargs)
 
     def autenticate_user(self, matricula, password):
         # tenta autenticar via DataRecord
@@ -56,8 +56,8 @@ class Application():
     def form_materia(self, materia=None):
         return template('app/views/html/form_materia', materia=materia)
     
-    def form_registro(self):
-        return template('app/views/html/form_registro')
+    def form_registro(self, **kwargs):
+        return template('app/views/html/form_registro', **kwargs)
 
     def save_changes(self):
         self.models.salvar()

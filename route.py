@@ -42,7 +42,7 @@ def hub():
 
 @app.route('/login', method='GET')
 def login_form():
-    return ctl.render('login')
+    return ctl.render('login', mostrar_alerta = False)
 
 @app.route('/login', method='POST')
 def login_action():
@@ -54,7 +54,8 @@ def login_action():
         response.set_cookie('session_id', session_id)
         redirect('/hub')
     else:
-        return template('app/views/html/login', error="Matrícula ou senha inválida")
+        print('senha errada')
+        return template('app/views/html/login', mostrar_alerta=True, mensagem="Matrícula ou senha inválida")
 
 @app.route('/logout', method='POST')
 def logout():
@@ -66,7 +67,7 @@ def logout():
 
 @app.route('/form_registro.html', method='GET') 
 def form_registro_page():
-    return ctl.render('form_registro')
+    return ctl.render('form_registro', mostrar_alerta=False)
 
 @app.route('/registro', method='POST') 
 def registro_action():
@@ -76,7 +77,7 @@ def registro_action():
     password = request.forms.get('password')
 
     if ctl.models.work_with_parameter(matricula):
-        return "Matrícula já cadastrada. Por favor, use outra matrícula ou faça login."
+        return ctl.render('form_registro', mostrar_alerta=True, mensagem="Matrícula já registrada.")
 
     novo_usuario = Usuario(nome, matricula, curso, password) 
     

@@ -69,5 +69,12 @@
         "curso": "aaa",
         "password": "1234567",
         "materias": []
+    },
+    {
+        "nome": "mari",
+        "matricula": "241001352",
+        "curso": "arquitetura",
+        "password": "teste",
+        "materias": []
     }
 ]
