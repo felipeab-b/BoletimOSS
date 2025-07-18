@@ -46,7 +46,7 @@
               <td>{{ materia.get_nome() }}</td>
               <td class="media-cell">{{"%.2f" % materia.calcular_media()}}</td>
               <td>
-                <span id="faltas-{{ materia.get_codigo() }}">
+                <span id="faltas-resumo-{{ materia.get_codigo() }}">
                   {{ materia.get_faltas() }}
                 </span>
                 <form
@@ -106,7 +106,7 @@
               <p>
                 <span class="status-indicator"></span>
                 Faltas:
-                <span id="faltas-{{ materia.get_codigo() }}">
+                <span id="faltas-card-{{ materia.get_codigo() }}">
                   {{ materia.get_faltas() }}
                 </span>
                 / {{ materia.limite_faltas() }}
@@ -201,27 +201,24 @@
           <div class="avaliacoes-container">
             <h4>Avaliações:</h4>
             % if materia.listar_avaliacoes():
-              <ul id="avals-{{ materia.get_codigo() }}"
-                  style="padding:0; list-style:none;">
-                % for avaliacao in materia.listar_avaliacoes():
-                  <li id="aval-{{ materia.get_codigo() }}-{{ loop.index }}"
-                      class="item-row">
-                    <div>
-                      <strong>Avaliação:</strong>
-                      {{ avaliacao.get_comentario() }}
-                    </div>
-                    <div class="item-actions">
-                      <form
-                        action="/materia/{{ materia.get_codigo() }}/avaliacao/{{ avaliacao.get_comentario() }}/excluir"
-                        method="post"
-                      >
-                        <button type="submit" class="delete-item-btn">
-                          Excluir
-                        </button>
-                      </form>
-                    </div>
-                  </li>
-                % end
+              <ul style="padding:0; list-style:none;">
+              % for idx, avaliacao in enumerate(materia.listar_avaliacoes()):
+                <li id="aval-{{ materia.get_codigo() }}-{{ idx }}" class="item-row">
+                  <div>
+                    <strong>Avaliação:</strong> {{ avaliacao.get_comentario() }}
+                  </div>
+                  <div class="item-actions">
+                    <form
+                      action="/materia/{{ materia.get_codigo() }}/avaliacao/{{ avaliacao.get_comentario() }}/excluir"
+                      method="post"
+                    >
+                      <button type="submit" class="delete-item-btn">
+                        Excluir
+                      </button>
+                    </form>
+                  </div>
+                </li>
+              % end
               </ul>
             % else:
               <p class="no-items">Nenhuma avaliação registrada</p>
