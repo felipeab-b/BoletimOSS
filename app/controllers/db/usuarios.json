@@ -75,6 +75,15 @@
         "matricula": "241001352",
         "curso": "arquitetura",
         "password": "teste",
-        "materias": []
+        "materias": [
+            {
+                "codigo": "1245",
+                "nome": "auola",
+                "horas": 30,
+                "faltas": 3,
+                "notas": [],
+                "avaliacoes": []
+            }
+        ]
     }
 ]

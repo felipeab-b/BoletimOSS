@@ -35,5 +35,6 @@
         </div>
     </div>
 % include('app/views/html/alerta.tpl')
+
 </body>
 </html>
